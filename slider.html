@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="base.css">
+    <style>
+        .wrap {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .slider {
+            position: relative;
+            width: 300%;
+            transform: translateX(0px);
+            transition: all 0.5s linear 0s;
+        }
+
+        .slider li {
+            width: 33.33%;
+            float: left;
+        }
+
+        .slider li a {
+            display: block;
+            width: 100%;
+        }
+
+        .slider li a img {
+            width: 100%;
+        }
+
+        .dots {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            text-align: center;
+            bottom: 10px;
+        }
+
+        .dots span {
+            width: 6px;
+            height: 6px;
+            border: 1px solid #fff;
+            border-radius: 7px;
+            display: inline-block;
+        }
+
+        .active {
+            background: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <ul class="slider clearfix">
+            <li>
+                <a href="#">
+                    <img src="//m.360buyimg.com/mobilecms/jfs/t1/4703/13/11050/60045/5bcd99e8E7a2a875c/fadb79cb35c5b6d1.jpg!cr_1125x549_0_72">
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="//m.360buyimg.com/mobilecms/jfs/t1/10693/6/2451/131544/5be13e25E76db784a/e01b1182c8cc28ef.jpg!cr_1125x549_0_72">
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="//m.360buyimg.com/mobilecms/jfs/t24808/300/2372361886/150642/3cdc58fe/5be3d901Nb9401a79.jpg!cr_1125x549_0_72">
+                </a>
+            </li>
+        </ul>
+        <div class="dots">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</body>
+<script>
+    function Slider() { }
+    Slider.prototype.init = function (params) {
+        var dom = params.dom || false;
+        var dots = params.dots || false;
+
+        if (dots) {
+            dotsrun(dots);
+        } else {
+            console.log("no dots");
+        }
+
+        if (dom) {
+            imgsrun(dom);
+        } else {
+            console.log("no dom")
+        }
+
+        //小圆点运动
+        function dotsrun(dots) {
+            var $dots = document.querySelector(dots);
+            var $dots = $dots.children;
+            var $dotsLength = $dots.length;
+            var start = 0;
+            for (var $dot of $dots) {
+                $dot.classList.remove('active');
+            }
+            $dots[start].classList.add('active');
+            setInterval(function () {
+                for (var $dot of $dots) {
+                    $dot.classList.remove('active');
+                }
+                if(start>=$dotsLength - 1){
+                    start = 0;
+                }else{
+                    start++;
+                }
+                $dots[start].classList.add('active');
+            }, 3000);
+        }
+
+        //图片运动
+        function imgsrun(dom) {
+            var $dom = document.querySelector(dom);
+            //元素宽度
+            var domWidth = $dom.clientWidth;
+            //一张图片宽度
+            var imgWidth = $dom.children[0].children[0].children[0].clientWidth;
+            var start = 0;
+            setInterval(function () {
+                if (start >= domWidth - imgWidth) {
+                    start = 0;
+                    $dom.style.transition = 'all 0s linear 0s';
+                } else {
+                    start += imgWidth;
+                    $dom.style.transition = 'all 0.5s linear 0s';
+                }
+                $dom.style.transform = 'translateX(' + (-start + 'px') + ')';
+            }, 3000);
+        }
+
+    };
+
+</script>
+<script>
+    var slider = new Slider();
+    slider.init({
+        dom: ".slider",
+        dots: ".dots"
+    });
+</script>
+
+</html>

@@ -1,0 +1,54 @@
+/*移动端通用样式*/
+*,
+::before,
+::after{
+	font-size: 14px;
+	margin: 0;
+	padding: 0;
+    
+    /*清除点击高亮效果*/
+    -webkit-tap-highlight-color:transparent;
+
+    /*盒子模型*/
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+
+    /*统一设置文字，sans-serif 移动端的默认字体*/
+    font-family: '微软雅黑',sans-serif;
+
+}
+
+/*input去除默认样式*/
+input{
+	border: none;
+	-webkit-appearance:none;
+}
+
+/*去掉a标签的下划线*/
+a{
+	text-decoration: none;
+}
+
+/*去掉ol,ul的小圆点*/
+ol,ul{
+	list-style: none;
+}
+
+/*增加浮动*/
+.f_l{
+	float: left;
+}
+.f_r{
+	float: right;
+}
+
+/*清除浮动*/
+.clearfix::before,
+.clearfix::after{
+	content: ".";
+	display: block;
+	line-height: 0;
+	height: 0;
+	visibility: hidden;
+	clear: both;
+}
